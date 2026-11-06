@@ -1,24 +1,39 @@
 # database.py
 import os
-from dotenv import load_dotenv
+
+# Versuche dotenv zu laden, fange den Fehler ab, falls das Modul auf dem Server fehlt
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 from supabase import create_client, Client
 
-# Lade Umgebungsvariablen aus der .env-Datei
-load_dotenv()
+# Lade Umgebungsvariablen (greift auf Render-Environment oder lokale .env zu)
 url = os.environ.get("SUPABASE_URL")
 key = os.environ.get("SUPABASE_KEY")
 
-# Supabase-Client initialisieren, falls Credentials vorhanden sind
 if url and key:
     supabase: Client = create_client(url, key)
 else:
     supabase = None
 
-# Offizielle Leader-Liste für die Vorschläge (AutoComplete)
+# Offizielle Leader-Liste (für AutoComplete und Vorschläge)
 LEADERS = [
-    "FB01-001 Son Goku"
-    "Fb01-002 Beerus"
-    "FB01-035 Goku Black"
+    "FB01-001 Son Goku",
+    "FB01-015 Vegeta",
+    "FB01-035 Broly",
+    "FB01-070 Golden Frieza",
+    "FB01-105 Future Trunks",
+    "FB02-001 Beerus",
+    "FB02-039 Son Gohan",
+    "FB02-069 Frieza",
+    "FB02-108 Cooler",
+    "FB03-001 Bardock",
+    "FB03-030 Android 17",
+    "FB03-062 Goku Black",
+    "FB04-001 Jiren",
 ]
 
 def get_leaders():
